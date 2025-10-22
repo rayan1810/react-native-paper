@@ -107,7 +107,9 @@ const Text = (
         children.type === AnimatedText ||
         children.type === StyledText)
     ) {
-      const { props } = children;
+      const { props } = rest.children as {
+        props: { variant?: string; style?: StyleProp<TextStyle> };
+      };
 
       // Context:   Some components have the built-in `Text` component with a predefined variant,
       //            that also accepts `children` as a `React.Node`. This can result in a situation,
@@ -152,7 +154,8 @@ const Text = (
           { writingDirection, color: theme.colors.onSurface },
           textStyle,
         ]}
-        {...rest}
+        {...
+}
       >
         {children}
       </NativeText>

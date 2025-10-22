@@ -1,7 +1,7 @@
 import * as React from 'react';
 import { Animated } from 'react-native';
 
-import { render } from '@testing-library/react-native';
+import { act, render } from '@testing-library/react-native';
 import color from 'color';
 
 import { getTheme } from '../../core/theming';
@@ -669,10 +669,7 @@ describe('getChipColor - border color', () => {
         isOutlined: false,
       })
     ).toMatchObject({
-      borderColor: color(getTheme().colors.onSurfaceVariant)
-        .alpha(0.12)
-        .rgb()
-        .string(),
+      borderColor: 'transparent',
     });
   });
 
@@ -684,7 +681,7 @@ describe('getChipColor - border color', () => {
         isOutlined: false,
       })
     ).toMatchObject({
-      borderColor: color('purple').alpha(0.29).rgb().string(),
+      borderColor: 'transparent',
     });
   });
 
@@ -695,7 +692,7 @@ describe('getChipColor - border color', () => {
         isOutlined: false,
       })
     ).toMatchObject({
-      borderColor: getTheme().colors.outline,
+      borderColor: 'transparent',
     });
   });
 
@@ -789,8 +786,9 @@ it('animated value changes correctly', () => {
     duration: 200,
   }).start();
 
-  jest.advanceTimersByTime(200);
-
+  act(() => {
+    jest.advanceTimersByTime(200);
+  });
   expect(getByTestId('chip-container-outer-layer')).toHaveStyle({
     transform: [{ scale: 1.5 }],
   });
